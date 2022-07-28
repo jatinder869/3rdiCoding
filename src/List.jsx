@@ -2,10 +2,17 @@ import axios from 'axios'
 import { useEffect, useState } from 'react'
 import './list.css'
 
+/**
+ * Mounts array of retailer into table
+ * @returns html table with list of retailers
+ */
 const List = () => {
 
     const [retailers, setRetailers] = useState([])
 
+    /**
+     * using axios to get data from API and using useState to set data in local variable
+     */
     const getListInfo = () => {
         axios.get("https://www.savemybills.com.au/api/getRetailer")
             .then(res => {
@@ -14,6 +21,9 @@ const List = () => {
             })
     }
     
+    /**
+     * dependency array empty so that list renders only once
+     */
     useEffect(() => {
         getListInfo()
     },[])
@@ -35,6 +45,7 @@ const List = () => {
                 </thead>
                 <tbody>
                     {
+                        // using array map to iterate over each data item in array
                         retailers.map((each) => (
                             <tr key={each.id}>
                                 <td>{each.id}</td>
